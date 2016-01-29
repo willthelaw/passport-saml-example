@@ -9,4 +9,16 @@ block content
 		dt Email
 		dd #{user.email}
 
+	h2 Affiliations
+
+	ul
+		each affil in user.affiliations
+			li= affil
+
+	h2 Groups
+
+	ul
+		each group in user.groups
+			li= group
+
 	a(href="/logout") Logout

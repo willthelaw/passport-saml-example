@@ -29,7 +29,9 @@ module.exports = function (passport, config) {
         email : profile.email,
         displayName : profile.cn || profile.displayName,
         firstName : profile.givenName,
-        lastName : profile.sn
+        lastName : profile.sn,
+        groups : profile.eduPersonEntitlement ? profile.eduPersonEntitlement.sort() : [],
+        affiliations: profile.eduPersonScopedAffiliation ? profile.eduPersonScopedAffiliation.sort() : [],
       };
       console.error('USER');
       console.dir(user);

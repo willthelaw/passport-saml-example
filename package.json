@@ -24,7 +24,7 @@
     "jade": "*",
     "nodemon": "*",
     "passport": "*",
-    "passport-saml": "*"
+    "passport-saml": "git+https://github.com/bergie/passport-saml.git"
   },
   "engines": {
     "node": ">= 0.10.0"

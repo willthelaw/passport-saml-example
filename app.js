@@ -1,4 +1,6 @@
 var express = require('express'),
+  express_session = require('express-session'),
+  morgan = require('morgan'),
   http = require('http'),
   path = require('path'),
   passport = require("passport");
@@ -11,31 +13,17 @@ require('./config/passport')(passport, config);
 
 var app = express();
 
-app.configure(function () {
   app.set('port', config.app.port);
   app.set('views', __dirname + '/app/views');
   app.set('view engine', 'jade');
-  app.use(express.logger('dev'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session(
+  app.use(morgan('dev'));
+  app.use(express_session(
     {
       secret: 'this shit hits'
     }));
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(express.methodOverride());
-  app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
-});
-
-app.configure('development', function () {
-  console.log ("Development mode.");
-  app.use(express.errorHandler());
-});
-app.configure ('production', function () {
-  console.log ("Production mode.");
-});
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
